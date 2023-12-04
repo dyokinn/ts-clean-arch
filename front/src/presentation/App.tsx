@@ -5,8 +5,12 @@ import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom"
 import HomePage from './pages/Home';
 import CartPage from './pages/Cart';
 import LoginPage from './pages/Login';
+import { AuthContext, authValue } from './hooks/contexts/useAuth';
+import { ThemeContext, themeValue } from './hooks/contexts/useTheme';
+import { HttpProductRepository } from '../data/repositories/ProductRepository/HttpProductRepository';
 
 function App() {
+    
     const router = createBrowserRouter([
         {
           path: "/",
@@ -14,7 +18,7 @@ function App() {
             { index:true, element: <Navigate to="/home" replace />},
             {
               path: "home",
-              element: <HomePage/>
+              element: <HomePage productRepository={new HttpProductRepository()}/>
             },
             {
               path: "cart",
@@ -29,7 +33,11 @@ function App() {
       ]);
     
     return (
-        <RouterProvider router={router} />
+        <ThemeContext.Provider value={themeValue}>
+            <AuthContext.Provider value={authValue}>
+                <RouterProvider router={router} />
+            </AuthContext.Provider>
+        </ThemeContext.Provider>
     )
 }
 

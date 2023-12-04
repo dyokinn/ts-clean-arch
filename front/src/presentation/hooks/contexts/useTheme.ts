@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
 
 
-export const authValue = () => {
+export const themeValue = () => {
     const [activeTheme, setActiveTheme] = useState<"light" | "dark">("dark")
-    return {activeTheme, setActiveTheme}
+    return {}
 }
 
 
-export const AuthContext = createContext({});
+export const ThemeContext = createContext({});
