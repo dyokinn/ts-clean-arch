@@ -2,7 +2,13 @@ import { createContext, useState } from "react";
 import IProductRepository from "../../../data/repositories/ProductRepository/IProductRepository";
 import Product from "../../../core/models/Product";
 
-export const useCart = () => {
+interface CartValueProps {
+    cart: any,
+    addToCart: any,
+    removeFromCart:any
+}
+
+export const cartValue = () => {
 
     const [cart, setCart] = useState<Product[]>([])
 
@@ -14,7 +20,7 @@ export const useCart = () => {
         
     }
 
-    return { cart, addToCart, removeFromCart }
+    return { cart, addToCart, removeFromCart } as CartValueProps
 }
 
-export const cartContext = createContext({});
+export const CartContext = createContext({} as CartValueProps);

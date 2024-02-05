@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from "react"
-import IProductRepository from "../../../data/repositories/ProductRepository/IProductRepository"
-import Product from "../../../core/models/Product"
+import React, { useContext, useEffect, useState } from "react"
 import { ProductsDisplay } from "../../components/ProductsDisplay"
+import { useOrder } from "../../hooks/useOrder"
+import { LocalProductRepository } from "../../../data/repositories/ProductRepository/LocalUserRepository"
+import {CartContext, cartValue } from "../../hooks/contexts/useCart"
+import { useProducts } from "../../hooks/useProducts"
+import { AxiosClient } from "../../../infra/clients/AxiosClient"
 
-type HomePageProps = {
-    productRepository: IProductRepository
-}
+const HomePage = () => {
 
-const HomePage = (props: HomePageProps) => {
+    const {cart, addToCart} = useContext(CartContext)
+    const {products, getProducts} = useProducts({
+        productRepository: new LocalProductRepository("products.json")
+    })
 
-    const [products, setProducts] = useState<Product[]>([])
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const homePageProducts = await props.productRepository.getProducts()
-                setProducts(homePageProducts)
+                const homePageProducts = await getProducts()
             } catch (error) {
                 window.alert("Error during products loading!")
             }
         }
-
         fetchProducts()
     }, [])
     

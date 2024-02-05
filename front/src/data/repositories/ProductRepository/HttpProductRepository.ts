@@ -3,10 +3,11 @@ import { IClient } from "../../../infra/clients/IClient";
 import IProductRepository from "./IProductRepository";
 
 export class HttpProductRepository implements IProductRepository{
-    client: IClient;
 
-    constructor(client: IClient){
-        this.client = client
+    url: string;
+    
+    constructor(url: string){
+        this.url = url
     }
 
     getProducts(): Promise<Product[]> {

@@ -1,7 +1,11 @@
 import { IClient } from "./IClient";
 
 export class AxiosClient implements IClient{
+    connString: string;
 
+    constructor(connString: string){
+        this.connString = this.connString
+    }        
 
     get() {
         throw new Error("Method not implemented.");
